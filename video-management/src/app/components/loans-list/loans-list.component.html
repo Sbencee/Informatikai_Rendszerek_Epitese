@@ -1,0 +1,57 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <button type="button" class="btn btn-primary btn-floating" (click)="showTag(true)">
+                <i class="bi bi-plus">Új kölcsönzés</i>
+              </button>
+        </div>
+    </div>
+
+    <div class="alert alert-success" role="alert" *ngIf="successMessage">
+      {{successMessage}}
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+      {{errorMessage}}
+    </div>
+
+    <form *ngIf="showNewLoan" [formGroup]="loanForm">
+    <div class="mb-3">
+        <label for="issueDate" class="form-label">Kölcsönzési dátum (ÉÉÉÉ-HH-nn): </label>
+        <input type="text" class="form-control" id="issueDate" name="issueDate" formControlName="issueDate">
+        <div *ngIf="issueDate.invalid && (issueDate.touched || issueDate.dirty)">
+            <small class="text-danger" *ngIf="issueDate.errors?.['pattern']">A dátum nem megfelelő formátumban van.</small>
+        </div>
+    </div>
+    <div class="mb-3">
+      <label for="dueDate" class="form-label">Beadási határidő (ÉÉÉÉ-HH-nn):</label>
+      <input type="text" class="form-control" id="dueDate" name="dueDate" formControlName="dueDate">
+      <div *ngIf="dueDate.invalid && (dueDate.touched || dueDate.dirty)">
+          <small class="text-danger" *ngIf="dueDate.errors?.['pattern']">A dátum nem megfelelő formátumban van.</small>
+      </div>
+    </div>
+    <div class="mb-3" *ngIf="ModifyLoan">
+      <label for="returnDate" class="form-label">Visszahozta (ÉÉÉÉ-HH-nn):</label>
+      <input type="text" class="form-control" id="returnDate" name="returnDate" formControlName="returnDate">
+      <div *ngIf="returnDate.invalid && (returnDate.touched || returnDate.dirty)">
+          <small class="text-danger" *ngIf="returnDate.errors?.['pattern']">A dátum nem megfelelő formátumban van.</small>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="brand" class="form-label">Felhasználó</label>
+      <select id="loaners" name="loaners" class="form-select" formControlName="loaners">
+          <option *ngFor="let user of users" [ngValue]="{ id: user.id }">{{user.lastName}} {{user.firstName}}</option>
+      </select>
+    </div>
+
+      <div class="mb-3">
+        <label for="brand" class="form-label">Tartalom</label>
+        <select class="form-select" id="videos" name="videos" formControlName="videos">
+          <option *ngFor="let videos of video" [ngValue]="{id: videos.id}">{{videos.isan}} - {{videos.author}}: {{videos.title}}</option>
+        </select>
+      </div>
+        
+        <button type="button" class="btn btn-primary" (click)="insertNewLoan()">Add</button>
+      </form>
+    
+    <app-loans [loan]="loans"></app-loans>
+</div>

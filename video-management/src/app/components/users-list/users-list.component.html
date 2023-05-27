@@ -1,0 +1,100 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2">
+        <button type="button" class="btn btn-primary btn-floating" (click)="showTag()">
+          <i class="bi bi-plus"></i> Új felhasználó
+        </button>
+      </div>
+    </div>
+    <div class="alert alert-success" role="alert" *ngIf="successMessage">
+      {{ successMessage }}
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+    <form *ngIf="showNewUser" [formGroup]="userForm">
+        <div class="mb-3">
+            <label for="firstName" class="form-label">Keresztnév:</label>
+            <input type="text" class="form-control" id="firstName" name="firstName" formControlName="firstName">
+            <div *ngIf="firstName.invalid && (firstName.touched || firstName.dirty)">
+                <small class="text-danger" *ngIf="firstName.errors?.['required']">A keresztnév nem lehet üres.</small>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="lastName" class="form-label">Vezetéknév:</label>
+            <input type="text" class="form-control" id="lastName" name="lastName" formControlName="lastName">
+            <div *ngIf="lastName.invalid && (lastName.touched || lastName.dirty)">
+                <small class="text-danger" *ngIf="lastName.errors?.['required']">A vezetéknév nem lehet üres.</small>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="phone" class="form-label">Telefonszám:</label>
+            <input type="text" class="form-control" id="phone" name="phone" formControlName="phone">
+            <div *ngIf="phone.invalid && (phone.touched || phone.dirty)">
+                <small class="text-danger" *ngIf="phone.errors?.['required']">A telefonszám nem lehet üres.</small>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="personalId" class="form-label">Személyi igazolvány szám:</label>
+            <input type="text" class="form-control" id="personalId" name="personalId" formControlName="personalId">
+            <div *ngIf="personalId.invalid && (personalId.touched || personalId.dirty)">
+                <small class="text-danger" *ngIf="personalId.errors?.['required']">A személyi szám nem lehet üres.</small>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="zipCode" class="form-label">Irányítószám:</label>
+            <input type="number" class="form-control" id="zipCode" name="zipCode" formControlName="zipCode">
+            <div *ngIf="zipCode.invalid && (zipCode.touched || zipCode.dirty)">
+                <small class="text-danger" *ngIf="zipCode.errors?.['min']">Az irányítószám nem lehet kisebb 0-nál.</small>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="city" class="form-label">Település:</label>
+            <input type="text" class="form-control" id="city" name="city" formControlName="city">
+            <div *ngIf="city.invalid && (city.touched || city.dirty)">
+                <small class="text-danger" *ngIf="city.errors?.['required']">A település nem lehet üres.</small>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="street" class="form-label">Utca, szám:</label>
+            <input type="text" class="form-control" id="street" name="street" formControlName="street">
+            <div *ngIf="street.invalid && (street.touched || street.dirty)">
+                <small class="text-danger" *ngIf="street.errors?.['required']">Az utca nem lehet üres.</small>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="age" class="form-label">Kor:</label>
+            <input type="number" class="form-control" id="age" name="age" formControlName="age">
+            <div *ngIf="age.invalid && (age.touched || age.dirty)">
+                <small class="text-danger" *ngIf="age.errors?.['min']">A kornak pozitív számnak kell lennie.</small>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">E-mail cím:</label>
+            <input type="text" class="form-control" id="email" name="email" formControlName="email">
+            <div *ngIf="email.invalid && (email.touched || email.dirty)">
+                <small class="text-danger" *ngIf="email.errors?.['required']">Az E-mail cím nem lehet üres.</small>
+            </div>
+        </div>
+        
+        <button type="button" class="btn btn-primary" (click)="insertNewUser()">Hozzáadás</button>
+    </form>
+    
+    <div class="row">
+        <div class="col-md-8">
+            <input type="text" class="form-control" [(ngModel)]="query" placeholder="Search content">
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-outline-primary">Search</button>
+        </div>
+    </div>
+   <app-users [users]="users"></app-users>
+</div>

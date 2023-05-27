@@ -1,0 +1,31 @@
+<div class="row" *ngFor="let loans of loan">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>{{loans.id}}</h5>
+                <button type="button" class="btn btn-primary btn-floating" (click)="goToLoanForm(loans.id)">
+                    <i class="bi bi-plus">Módosítás</i>
+                </button>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        Kölcsönzési dátum: <b>{{loans.issueDate}}</b>
+                    </li>
+                    <li class="list-group-item">
+                        Határidő: <b>{{loans.dueDate}}</b>
+                    </li>
+                    <li class="list-group-item">
+                        Visszatérítési dátum: <b>{{loans.returnDate}}</b>
+                    </li>
+                    <li class="list-group-item">
+                        Státusz: <b>{{loans.status}}</b>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+        </div>
+    </div>
+    
+</div>

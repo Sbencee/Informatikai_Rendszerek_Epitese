@@ -1,0 +1,73 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <button type="button" class="btn btn-primary btn-floating" (click)="showTag()">
+                <i class="bi bi-plus">Új tartalom</i>
+              </button>
+        </div>
+    </div>
+    <div class="alert alert-success" role="alert" *ngIf="successMessage">
+      {{ successMessage }}
+  </div>
+  <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+      {{ errorMessage }}
+  </div>
+
+    <form *ngIf="showNewvideo" [formGroup]="videoForm">
+      <div class="mb-3">
+        <label for="isan" class="form-label">ISAN:</label>
+        <input type="text" class="form-control" id="isan" name="isan" formControlName="isan">
+        <div *ngIf="isan.invalid && (isan.touched || isan.dirty)">
+            <small class="text-danger" *ngIf="isan.errors?.['required']">Az ISAN érték nem lehet üres.</small>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="author" class="form-label">Szerző:</label>
+        <input type="text" class="form-control" id="author" name="author" formControlName="author">
+        <div *ngIf="author.invalid && (author.touched || author.dirty)">
+            <small class="text-danger" *ngIf="author.errors?.['required']">A szerző nem lehet üres.</small>
+        </div>
+    </div>
+    <div class="mb-3">
+      <label for="title" class="form-label">Cím:</label>
+      <input type="text" class="form-control" id="title" name="title" formControlName="title">
+      <div *ngIf="title.invalid && (title.touched || title.dirty)">
+          <small class="text-danger" *ngIf="title.errors?.['required']">A cím nem lehet üres.</small>
+      </div>
+  </div>
+  <div class="mb-3">
+    <label for="stock" class="form-label">Példányszám:</label>
+    <input type="text" class="form-control" id="stock" name="stock" formControlName="stock">
+    <div *ngIf="stock.invalid && (stock.touched || stock.dirty)">
+        <small class="text-danger" *ngIf="stock.errors?.['min']">A példányszám csak pozitív értéket vehet fel.</small>
+    </div>
+</div>
+<div class="mb-3">
+  <label for="imgURL" class="form-label">Kép URL címe:</label>
+  <input type="text" class="form-control" id="imgURL" name="imgURL" formControlName="imgURL">
+  <div *ngIf="imgURL.invalid && (imgURL.touched || imgURL.dirty)">
+      <small class="text-danger" *ngIf="imgURL.errors?.['pattern']">A vezetéknév nem lehet üres.</small>
+  </div>
+</div>
+<div class="mb-3">
+  <label for="types" class="form-label">Mi a típus?</label>
+  <select id="types" name="types" class="form-select" formControlName="types">
+    <option value="Blueray">Blueray</option>
+    <option value="CD">CD</option>
+    <option value="VHS">VHS</option>
+  </select>
+</div>
+
+        <button type="button" class="btn btn-primary" (click)="insertNewvideo()">Add</button>
+      </form>
+    
+    <div class="row">
+        <div class="col-md-8">
+            <input type="text" class="form-control" [(ngModel)]="query" placeholder="Search content">
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-outline-primary">Keresés</button>
+        </div>
+    </div>
+    <app-videos [video]="videos"></app-videos>
+</div>
